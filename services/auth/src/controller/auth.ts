@@ -15,10 +15,12 @@ export const loginUser = asyncHandler(async (req, res) => {
       email,
       image: picture,
     });
+  }
     // the user will logind in 15 days after it will toke is expire
 
     /* counter a problem in jwt error which is playload first shoude be object some thins need to study*/
     // Generate token (for both new & existing user)
+    // think like jwt token similer to uuid but not exactly same work
     const token = jwt.sign(
       {
         id: user._id,
@@ -34,5 +36,5 @@ export const loginUser = asyncHandler(async (req, res) => {
       token,
       user,
     });
-  }
+  
 });
