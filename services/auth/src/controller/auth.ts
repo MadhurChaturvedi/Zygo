@@ -86,4 +86,11 @@ export const addUserRole = asyncHandler(
 );
 
 
+export const myProfile = asyncHandler(async(req:AuthenticatedRequest,res)=>{
+      const user = req.user;
+      res.json(user);
+
+})
+
+
 // time stamp 1:32 mins
