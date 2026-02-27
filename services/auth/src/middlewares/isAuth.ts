@@ -10,20 +10,26 @@ export interface AuthenticatedRequest extends Request {
 export const isAuth  = async (req:AuthenticatedRequest,res:Response,next:NextFunction): Promise<void> =>{
     try {
         const authHeader = req.headers.authorization;
+        // console.log(authHeader)
         if(!authHeader || !authHeader.startsWith("Bearer ")){
             res.status(401).json({
                 message:"Please login - no auth header"
             })
             return;
         }
+
         const token  = authHeader.split(" ")[1];
+
         if(!token){
             res.status(401).json({
-                message:"Please login - Token is missing"
+                message:"Please login - Token missing"
             })
             return;
         }
         const decodedValue = jwt.verify(token,process.env.JWT_SEC as string) as JwtPayload;
+
+        console.log(decodedValue.user);
+        
         if(!decodedValue || !decodedValue.user){
              res.status(401).json({
                 message:"Invalid Token"
