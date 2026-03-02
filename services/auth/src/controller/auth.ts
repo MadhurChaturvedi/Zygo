@@ -3,10 +3,28 @@ import User from "../model/User.js";
 import jwt from "jsonwebtoken";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import { AuthenticatedRequest } from "../middlewares/isAuth.js";
+import { oauth2Client } from "../config/googleConfig.js";
+import axios from "axios";
 
 export const loginUser = asyncHandler(async (req, res) => {
   // data is comming from frontend
-  const { email, name, picture } = req.body;
+  
+  // used this for google auth services
+  const {code} = req.body;
+  if(!code){
+    res.status(400).json({
+      messgae:"Authorization code is required"
+    })
+  }
+
+  const googleResponse = await oauth2Client.getToken(code);
+  oauth2Client.setCredentials(googleResponse.tokens);
+  const userResponse = await axios.get( `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleResponse.tokens.access_token}`);
+
+
+  //--------------------------------------
+  const { email, name, picture } = userResponse.data;
+  //---------------------------------------
   console.log(email, name, picture);
   //finding the user is exist or not
   let user = await User.findOne({ email });
