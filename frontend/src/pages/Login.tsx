@@ -46,9 +46,10 @@ export default function Login() {
                  <FcGoogle size={20} /> 
                  {loading ? "Sigin...":"Continue with Google"}  
             </button>
-            {/* <p className="text-center text-xs text-gray-400">
-                By continue you agree with our 
-            </p> */}
+            <p className="text-center text-xs text-gray-400">
+                By continue you agree with our {" "} <span className="text-[#E23774]">Terms of Services</span> &{" "}
+                <span className="text-[#E23774]">Privacy Policy</span>
+            </p>
         </div>
     </div>
   )
