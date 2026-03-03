@@ -35,7 +35,7 @@ export default function Login() {
         flow:"auth-code",
     })
   return (
-    <div className="flex min-h-screen item-center justify-center bg-white px-4">
+    <div className="flex h-screen min-h-screen item-center justify-center bg-white px-4">
         <div className="w-full max-w-sm space-y-6">
             <h1 className="text-center text-3xl font-bold text-[#E23774]">
                 Zomato 
